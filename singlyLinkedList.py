@@ -4,7 +4,7 @@ class Node:
         self.next = None
     
     def __str__(self):
-        return "Data :" + self.data 
+        return "Data: " + self.data 
 
 class LinkedList:
     def __init__(self):
@@ -49,6 +49,9 @@ class LinkedList:
         if position is 0:
             self.insertHead(newNode)
             return
+        if position is self.listLength():
+            self.insertEnd(newNode)
+            return
         currentNode = self.head
         currentPosition = 0
         while True:
@@ -63,6 +66,7 @@ class LinkedList:
     def insertEnd(self,newNode):
         if self.head is None:
             self.head = newNode
+            return
         else:
             lastNode = self.head
             while True:
@@ -262,7 +266,7 @@ class LinkedList:
                     break
             if(swaps == 0):
                 break
-            
+
     def sort(self):
         pass
 
@@ -270,10 +274,10 @@ class LinkedList:
 
 
 
-one = Node("Linjo")
-two = Node("Rejoy")
-three = Node("Linto")
-four = Node("Ligi")
+one = Node("Ava")
+two = Node("Adam")
+three = Node("Ben10")
+four = Node("Darth Vader")
 
 linkedList = LinkedList()
 linkedList.insert(one)
