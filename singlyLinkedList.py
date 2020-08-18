@@ -262,7 +262,11 @@ class LinkedList:
                     break
             if(swaps == 0):
                 break
-                
+            
+    def sort(self):
+        pass
+
+
 
 
 
