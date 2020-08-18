@@ -137,6 +137,7 @@ class LinkedList:
                 firstNode = currentNode                
                 firstNodePosition = position
                 currentNode = currentNode.next
+                previousOfSecondNode = currentNode
                 while True:
                     if(currentNode == NodeTwo):
                         secondNode = currentNode
@@ -151,6 +152,7 @@ class LinkedList:
                 secondNode = NodeTwo
                 secondNodePosition = position
                 currentNode = currentNode.next
+                previousOfFirstNode = currentNode
                 while True:
                     if(currentNode == NodeOne):
                         firstNode = currentNode
@@ -244,24 +246,41 @@ class LinkedList:
             previousOfSecondNode.next = firstNode
             firstNode.next = tempNode
 
-
+    def bubbleSort(self):
+        while True:
+            swaps = 0
+            currNode = self.head
+            while True:
+                if(currNode.next != None):
+                    if(currNode.data > currNode.next.data):
+                        previousNode = currNode.next
+                        self.swapbyNodes(currNode,currNode.next)
+                        currNode = previousNode
+                        swaps += 1
+                    currNode = currNode.next
+                else:
+                    break
+            if(swaps == 0):
+                break
                 
 
 
 
-# one = Node("Linjo")
-# two = Node("Rejoy")
-# three = Node("Linto")
-# four = Node("Ligi")
+one = Node("Linjo")
+two = Node("Rejoy")
+three = Node("Linto")
+four = Node("Ligi")
 
-# linkedList = LinkedList()
+linkedList = LinkedList()
+linkedList.insert(one)
+linkedList.insert(two)
+linkedList.insert(three)
+linkedList.insert(four)
 
-# linkedList.insert(one)
-# linkedList.insert(two)
-# linkedList.insert(three)
-# linkedList.insert(four)
-
-# linkedList.swapbyData("Linjo","Linto")
-
-
-# linkedList.printList()
+linkedList.printList()
+print("*"*10)
+linkedList.swapbyNodes(one,two)
+linkedList.printList()
+print("*"*10)
+linkedList.bubbleSort()
+linkedList.printList()
