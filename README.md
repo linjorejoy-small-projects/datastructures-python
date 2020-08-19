@@ -2,4 +2,46 @@
 
 Currently only the SinglyLinkedList, DoublyLinkedList has been added
 
-DoublyLinkedList is not complete
+
+
+## SinglyLinkedList
+> Swap method not working
+
+
+    isListEmpty()
+    listLength()
+    getNodePosition()
+    insertHead()
+    insert()
+    insertAt()
+    insertEnd()
+    deleteHead()
+    deleteAt()
+    printList()
+    bubbleSort()
+
+`swapByNodes()` and the `swapByData()` functions **NotWorking**
+
+
+## DoublyLinkedList
+>DoublyLinkedList is not complete
+
+> Swap method not working
+
+
+    isListEmpty()
+    listLength()
+    getNodePosition()
+    insertHead()
+    insert()
+    insertAt()
+    insertEnd()
+    deleteHead()
+    deleteAt()
+    deleteTail()
+    printList()
+    printFromBeginning()
+    printFromBack()
+    bubbleSort()
+
+`swapByNodes()` and the `swapByData()` functions **NotWorking**
