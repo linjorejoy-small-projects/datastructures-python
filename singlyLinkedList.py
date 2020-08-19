@@ -143,27 +143,35 @@ class LinkedList:
                 currentNode = currentNode.next
                 previousOfSecondNode = currentNode
                 while True:
-                    if(currentNode == NodeTwo):
-                        secondNode = currentNode
-                        secondNodePosition = position
+                    if currentNode.next is not None:
+                        if(currentNode == NodeTwo):
+                            secondNode = currentNode
+                            secondNodePosition = position
+                            break
+                        previousOfSecondNode = currentNode
+                        currentNode = currentNode.next
+                        position += 1
+                    else:
                         break
-                    previousOfSecondNode = currentNode
-                    currentNode = currentNode.next
-                    position += 1
                 break
             elif(currentNode == NodeTwo):
                 previousOfSecondNode = previousNode
                 secondNode = NodeTwo
                 secondNodePosition = position
-                currentNode = currentNode.next
                 previousOfFirstNode = currentNode
+                currentNode = currentNode.next
+                position += 1
                 while True:
-                    if(currentNode == NodeOne):
-                        firstNode = currentNode
-                        secondNodePosition = position
-                    previousOfFirstNode = currentNode
-                    currentNode = currentNode.next
-                    position += 1
+                    if currentNode.next is not None:
+                        if(currentNode == NodeOne):
+                            firstNode = currentNode
+                            firstNodePosition = position
+                        previousOfFirstNode = currentNode
+                        currentNode = currentNode.next
+                        position += 1
+                    else:
+                        break
+                break
             previousNode = currentNode
             currentNode = currentNode.next
             position += 1
@@ -177,10 +185,15 @@ class LinkedList:
             self.head = secondNode
         elif(secondNodePosition == 0):
             tempNode = firstNode.next
+            print(tempNode)
             firstNode.next = secondNode.next
-            firstNode.next = tempNode
+            print(firstNode)
+            secondNode.next = tempNode
+            print(secondNode)
             previousOfFirstNode.next = secondNode
+            print(previousOfFirstNode)
             self.head = firstNode
+            print(self.head)
         else:
             tempNode = secondNode.next
             secondNode.next = firstNode.next
@@ -287,7 +300,7 @@ linkedList.insert(four)
 
 linkedList.printList()
 print("*"*10)
-linkedList.swapbyNodes(one,two)
+linkedList.swapbyNodes(two,one)
 linkedList.printList()
 print("*"*10)
 linkedList.bubbleSort()

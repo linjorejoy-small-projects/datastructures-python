@@ -93,44 +93,59 @@ class LinkedList:
         newNode.previous = lastNode
         self.tail = newNode
     
-    # def deleteHead(self):
-    #     """Deletes the head of the LinkedList
-    #     """
-    #     if self.isListEmpty() is False:
-    #         previousHead = self.head
-    #         self.head = self.head.next
-    #         previousHead.next = None
-    #     else:
-    #         print("Linked List is Empty")
+    def deleteHead(self):
+        """Deletes the head of the LinkedList
+        """
+        if self.isListEmpty() is False:
+            self.head = self.head.next
+            self.head.previous.next = None
+            self.head.previous = None
+        else:
+            print("Linked List is Empty")
 
-    # def deleteAt(self,position):
-    #     """Delete a node at a specified position
+    def deleteAt(self,position):
+        """Delete a node at a specified position
 
-    #     Args:
-    #         position (Integer): The index value of the node to be deleted
-    #     """
-    #     if position < 0 or position >= self.listLength():
-    #         print("Invalid Position. Out of Bounds")
-    #         return
-    #     if self.isListEmpty() is False:
-    #         if position is 0:
-    #             self.deleteHead()
-    #             return
-    #         currentNode = self.head
-    #         currentPosition = 0
-    #         while True:
-    #             if currentPosition == position:
-    #                 previousNode.next = currentNode.next
-    #                 currentNode.next = None
-    #                 break
-    #             previousNode = currentNode
-    #             currentNode =currentNode.next
-    #             currentPosition +=1
-    #     else:
-    #         print("List is Empty")
+        Args:
+            position (Integer): The index value of the node to be deleted
+        """
+        if position < 0 or position >= self.listLength():
+            print("Invalid Position. Out of Bounds")
+            return
+        if self.isListEmpty() is False:
+            if position is 0:
+                self.deleteHead()
+                return
+            if position is self.listLength():
+                self.deleteTail()
+                return
+            if(position <= self.listLength()//20):
+                currentNode = self.head
+                currentPosition = 0
+                while True:
+                    if currentPosition == position:
+                        currentNode.previous.next = currentNode.next
+                        currentNode.next.previous = currentNode.previous
+                        del currentNode
+                        break
+                    currentNode =currentNode.next
+                    currentPosition +=1
+            else:
+                currentNode = self.tail
+                currentPosition = self.listLength()-1
+                while True:
+                    if currentPosition == position:
+                        currentNode.previous.next = currentNode.next
+                        currentNode.next.previous = currentNode.previous
+                        del currentNode
+                        break
+                    currentNode = currentNode.previous
+                    currentPosition -= 1
+        else:
+            print("List is Empty")
 
-    # def deleteTail(self):
-    #     pass
+    def deleteTail(self):
+        self.tail.previous.next = None
 
     def printList(self):
         """For printing the whole List from the Beginning
@@ -163,131 +178,155 @@ class LinkedList:
             print(currentNode)
             currentNode = currentNode.previous
     
-    # def swapbyNodes(self, NodeOne, NodeTwo):
-    #     """Used to swap the position of the two nodes in the linkedList
+    def swapbyNodes(self, NodeOne, NodeTwo):
+        """Used to swap the position of the two nodes in the linkedList
 
-    #     Args:
-    #         NodeOne (Node): First Node
-    #         NodeTwo (Node): Second Node
-    #     """
-    #     currentNode = self.head
-    #     previousNode = None
-    #     position = 0
-    #     while True:
-    #         # Finding Position of Node
-    #         if(currentNode == NodeOne):
-    #             previousOfFirstNode = previousNode
-    #             firstNode = currentNode                
-    #             firstNodePosition = position
-    #             currentNode = currentNode.next
-    #             previousOfSecondNode = currentNode
-    #             while True:
-    #                 if(currentNode == NodeTwo):
-    #                     secondNode = currentNode
-    #                     secondNodePosition = position
-    #                     break
-    #                 previousOfSecondNode = currentNode
-    #                 currentNode = currentNode.next
-    #                 position += 1
-    #             break
-    #         elif(currentNode == NodeTwo):
-    #             previousOfSecondNode = previousNode
-    #             secondNode = NodeTwo
-    #             secondNodePosition = position
-    #             currentNode = currentNode.next
-    #             previousOfFirstNode = currentNode
-    #             while True:
-    #                 if(currentNode == NodeOne):
-    #                     firstNode = currentNode
-    #                     secondNodePosition = position
-    #                 previousOfFirstNode = currentNode
-    #                 currentNode = currentNode.next
-    #                 position += 1
-    #         previousNode = currentNode
-    #         currentNode = currentNode.next
-    #         position += 1
+        Args:
+            NodeOne (Node): First Node
+            NodeTwo (Node): Second Node
+        """
+        currentNode = self.head
+        previousNode = None
+        position = 0
+        while True:
+            # Finding Position of Node
+            if(currentNode == NodeOne):
+                previousOfFirstNode = previousNode
+                firstNode = currentNode                
+                firstNodePosition = position
+                currentNode = currentNode.next
+                previousOfSecondNode = currentNode
+                while True:
+                    if(currentNode == NodeTwo):
+                        secondNode = currentNode
+                        secondNodePosition = position
+                        break
+                    previousOfSecondNode = currentNode
+                    currentNode = currentNode.next
+                    position += 1
+                break
+            elif(currentNode == NodeTwo):
+                previousOfSecondNode = previousNode
+                secondNode = NodeTwo
+                secondNodePosition = position
+                currentNode = currentNode.next
+                previousOfFirstNode = currentNode
+                while True:
+                    if(currentNode == NodeOne):
+                        firstNode = currentNode
+                        secondNodePosition = position
+                    previousOfFirstNode = currentNode
+                    currentNode = currentNode.next
+                    position += 1
+            previousNode = currentNode
+            currentNode = currentNode.next
+            position += 1
 
-    #     # Swapping
-    #     if(firstNodePosition == 0):
-    #         tempNode = secondNode.next
-    #         secondNode.next = firstNode.next
-    #         firstNode.next = tempNode
-    #         previousOfSecondNode.next = firstNode
-    #         self.head = secondNode
-    #     elif(secondNodePosition == 0):
-    #         tempNode = firstNode.next
-    #         firstNode.next = secondNode.next
-    #         firstNode.next = tempNode
-    #         previousOfFirstNode.next = secondNode
-    #         self.head = firstNode
-    #     else:
-    #         tempNode = secondNode.next
-    #         secondNode.next = firstNode.next
-    #         previousOfFirstNode.next = secondNode
-    #         previousOfSecondNode.next = firstNode
-    #         firstNode.next = tempNode
+        # Swapping
+        if(firstNodePosition == 0):
+            tempPrevNode = secondNode.previous
+            tempPostNode = secondNode.next
+            secondNode.previous = None
+            secondNode.next = firstNode.next
+            firstNode.next = tempPostNode
+            tempPrevNode.next = firstNode
+            self.head = secondNode
+            del tempPostNode
+            del tempPrevNode
+        elif(secondNodePosition == 0):
+            tempPrevNode = firstNode.previous
+            tempPostNode = firstNode.next
+            firstNode.previous = None
+            firstNode.next = secondNode.next
+            secondNode.next = tempPostNode
+            secondNode.previous = tempPrevNode
+            self.head = firstNode
+            del tempPostNode
+            del tempPrevNode
+        else:
+            tempPrevNode = secondNode.previous
+            tempPostNode = secondNode.next
+            secondNode.next = firstNode.next
+            secondNode.previous = firstNode.previous
+            firstNode.next = tempPostNode
+            firstNode.previous = tempPrevNode
+            del tempPostNode
+            del tempPrevNode
 
-    # def swapbyData(self, NodeOneData, NodeTwoData):
-    #     """Used to swap the position of the two nodes in the linkedList by the data
+    def swapbyData(self, NodeOneData, NodeTwoData):
+        """Used to swap the position of the two nodes in the linkedList
 
-    #     Args:
-    #         NodeOneData (String): First Node Data
-    #         NodeTwoData (String): Second Node Data
-    #     """
-    #     currentNode = self.head
-    #     previousNode = None
-    #     position = 0
-    #     while True:
-    #         # Finding Position of Node
-    #         if(currentNode.data == NodeOneData):
-    #             previousOfFirstNode = previousNode
-    #             firstNode = currentNode                
-    #             firstNodePosition = position
-    #             currentNode = currentNode.next
-    #             while True:
-    #                 if(currentNode.data == NodeTwoData):
-    #                     secondNode = currentNode
-    #                     secondNodePosition = position
-    #                     break
-    #                 previousOfSecondNode = currentNode
-    #                 currentNode = currentNode.next
-    #                 position += 1
-    #             break
-    #         elif(currentNode.data == NodeTwoData):
-    #             previousOfSecondNode = previousNode
-    #             secondNode = NodeTwoData
-    #             secondNodePosition = position
-    #             currentNode = currentNode.next
-    #             while True:
-    #                 if(currentNode.data == NodeOneData):
-    #                     firstNode = currentNode
-    #                     secondNodePosition = position
-    #                 previousOfFirstNode = currentNode
-    #                 currentNode = currentNode.next
-    #                 position += 1
-    #         previousNode = currentNode
-    #         currentNode = currentNode.next
-    #         position += 1
+        Args:
+            NodeOneData (Node): First Node
+            NodeTwoData (Node): Second Node
+        """
+        currentNode = self.head
+        previousNode = None
+        position = 0
+        while True:
+            # Finding Position of Node
+            if(currentNode.data == NodeOneData):
+                previousOfFirstNode = previousNode
+                firstNode = currentNode                
+                firstNodePosition = position
+                currentNode = currentNode.next
+                previousOfSecondNode = currentNode
+                while True:
+                    if(currentNode.data == NodeTwoData):
+                        secondNode = currentNode
+                        secondNodePosition = position
+                        break
+                    previousOfSecondNode = currentNode
+                    currentNode = currentNode.next
+                    position += 1
+                break
+            elif(currentNode.data == NodeTwoData):
+                previousOfSecondNode = previousNode
+                secondNode = NodeTwoData
+                secondNodePosition = position
+                currentNode = currentNode.next
+                previousOfFirstNode = currentNode
+                while True:
+                    if(currentNode.data == NodeOneData):
+                        firstNode = currentNode
+                        secondNodePosition = position
+                    previousOfFirstNode = currentNode
+                    currentNode = currentNode.next
+                    position += 1
+            previousNode = currentNode
+            currentNode = currentNode.next
+            position += 1
 
-    #     # Swapping
-    #     if(firstNodePosition == 0):
-    #         tempNode = secondNode.next
-    #         secondNode.next = firstNode.next
-    #         firstNode.next = tempNode
-    #         previousOfSecondNode.next = firstNode
-    #         self.head = secondNode
-    #     elif(secondNodePosition == 0):
-    #         tempNode = firstNode.next
-    #         firstNode.next = secondNode.next
-    #         firstNode.next = tempNode
-    #         previousOfFirstNode.next = secondNode
-    #         self.head = firstNode
-    #     else:
-    #         tempNode = secondNode.next
-    #         secondNode.next = firstNode.next
-    #         previousOfFirstNode.next = secondNode
-    #         previousOfSecondNode.next = firstNode
-    #         firstNode.next = tempNode
+        # Swapping
+        if(firstNodePosition == 0):
+            tempPrevNode = secondNode.previous
+            tempPostNode = secondNode.next
+            secondNode.previous = None
+            secondNode.next = firstNode.next
+            firstNode.next = tempPostNode
+            tempPrevNode.next = firstNode
+            self.head = secondNode
+            del tempPostNode
+            del tempPrevNode
+        elif(secondNodePosition == 0):
+            tempPrevNode = firstNode.previous
+            tempPostNode = firstNode.next
+            firstNode.previous = None
+            firstNode.next = secondNode.next
+            secondNode.next = tempPostNode
+            secondNode.previous = tempPrevNode
+            self.head = firstNode
+            del tempPostNode
+            del tempPrevNode
+        else:
+            tempPrevNode = secondNode.previous
+            tempPostNode = secondNode.next
+            secondNode.next = firstNode.next
+            secondNode.previous = firstNode.previous
+            firstNode.next = tempPostNode
+            firstNode.previous = tempPrevNode
+            del tempPostNode
+            del tempPrevNode
 
     # def bubbleSort(self):
     #     while True:
@@ -334,10 +373,13 @@ linkedList.insert(three3)
 print(linkedList.listLength())
 
 linkedList.insertAt(four,5)
-print("*"*10)
+print("#"*10)
 linkedList.insertAt(four4,5)
-print("*"*10)
-
 linkedList.printList()
+linkedList.deleteAt(5)
 print("*"*10)
-print(linkedList.listLength())
+linkedList.printList()
+
+print("*%"*10)
+linkedList.swapbyData("Ava","Adam")
+linkedList.printList()
